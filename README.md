@@ -2,8 +2,6 @@
 
 A simplified clone of [Atoms.dev](https://atoms.dev/) built for the ROOT full-stack engineer interview challenge. Describe your app idea in natural language and watch an AI agent generate a complete, runnable web application in real-time.
 
-![Preview](public/preview.png)
-
 ## Features
 
 - **AI-Powered Code Generation** — Describe any web app idea and get a complete, runnable HTML application with inline CSS & JS

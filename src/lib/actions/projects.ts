@@ -18,21 +18,21 @@ export async function createProject(
   description: string
 ): Promise<ProjectRow> {
   const id = generateId();
-  return store.createProject(id, userId, name, description);
+  return await store.createProject(id, userId, name, description);
 }
 
 export async function listProjects(userId: string): Promise<ProjectRow[]> {
-  return store.listProjects(userId);
+  return await store.listProjects(userId);
 }
 
 export async function getProject(id: string): Promise<ProjectRow | undefined> {
-  return store.getProject(id);
+  return await store.getProject(id);
 }
 
 export async function deleteProject(id: string): Promise<void> {
-  store.deleteProject(id);
+  await store.deleteProject(id);
 }
 
 export async function renameProject(id: string, name: string): Promise<void> {
-  store.renameProject(id, name);
+  await store.renameProject(id, name);
 }

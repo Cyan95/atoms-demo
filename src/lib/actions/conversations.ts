@@ -19,11 +19,11 @@ export async function saveConversation(
   codeBlocks?: string[]
 ): Promise<ConversationRow> {
   const id = generateId();
-  return store.saveConversation(id, projectId, role, content, codeBlocks);
+  return await store.saveConversation(id, projectId, role, content, codeBlocks);
 }
 
 export async function getConversations(
   projectId: string
 ): Promise<ConversationRow[]> {
-  return store.getConversations(projectId);
+  return await store.getConversations(projectId);
 }

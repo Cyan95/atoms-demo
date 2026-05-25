@@ -25,6 +25,8 @@ When the user asks for changes to an existing app, you MUST output the COMPLETE 
 - Each app must feel like a real product
 
 ## Important
+- NEVER use inline HTML tags (like <span>, <code>) inside code displayed in <pre> blocks — code must be pure, valid source text
+- Use Prism.js or highlight.js CDN for syntax highlighting instead of inline tags
 - NEVER use placeholder comments like "<!-- more items -->"
 - ALWAYS output the complete HTML file in the code fence
 - For iteration requests, output the FULL updated file, not fragments

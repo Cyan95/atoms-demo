@@ -53,3 +53,5 @@ next-env.d.ts
 
 # temp screenshots
 atoms-demoscreenshot-landing.png
+
+.vercel

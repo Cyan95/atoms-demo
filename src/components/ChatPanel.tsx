@@ -35,11 +35,21 @@ export default function ChatPanel({
   const [messages, setMessages] = useState<Message[]>(
     initialMessages ?? []
   );
+  const [hydrated, setHydrated] = useState(
+    (initialMessages?.length ?? 0) > 0
+  );
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const initialPromptSent = useRef(false);
+
+  useEffect(() => {
+    if (initialMessages && initialMessages.length > 0 && !hydrated) {
+      setMessages(initialMessages);
+      setHydrated(true);
+    }
+  }, [initialMessages, hydrated]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

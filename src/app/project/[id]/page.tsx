@@ -8,6 +8,12 @@ import PreviewPanel from "@/components/PreviewPanel";
 import { getProject } from "@/lib/actions/projects";
 import { getConversations } from "@/lib/actions/conversations";
 
+interface Message {
+  id: string;
+  role: "user" | "assistant" | "system";
+  content: string;
+}
+
 function getUserId(): string {
   if (typeof window === "undefined") return "";
   let userId = localStorage.getItem("atoms_user_id");
@@ -26,6 +32,7 @@ export default function ProjectPage() {
   const initialPrompt = searchParams.get("prompt");
 
   const [code, setCode] = useState<string | null>(null);
+  const [initialMessages, setInitialMessages] = useState<Message[]>([]);
   const [projectName, setProjectName] = useState("Loading...");
   const [isEditingName, setIsEditingName] = useState(false);
   const [nameInput, setNameInput] = useState("");
@@ -45,9 +52,16 @@ export default function ProjectPage() {
     });
   }, [id, router]);
 
-  // Load conversations and restore code
+  // Load conversations: restore code + chat history
   useEffect(() => {
     getConversations(id).then((convs) => {
+      const messages: Message[] = convs.map((c) => ({
+        id: c.id,
+        role: c.role,
+        content: c.content,
+      }));
+      setInitialMessages(messages);
+
       for (let i = convs.length - 1; i >= 0; i--) {
         const c = convs[i];
         if (c.role === "assistant" && c.codeBlocks && c.codeBlocks.length > 0) {
@@ -122,6 +136,7 @@ export default function ProjectPage() {
             projectId={id}
             onCodeGenerated={handleCodeGenerated}
             initialPrompt={initialPrompt}
+            initialMessages={initialMessages}
           />
         </div>
 

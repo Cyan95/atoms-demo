@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Monitor, Code2, ExternalLink, RefreshCw } from "lucide-react";
+import { Monitor, Code2, ExternalLink, RefreshCw, Download } from "lucide-react";
 
 const WELCOME_HTML = `<!DOCTYPE html>
 <html lang="en">
@@ -109,6 +109,21 @@ window.onerror = function(msg, url, line, col, err) {
               <RefreshCw className="w-4 h-4" />
             </button>
           )}
+          <button
+            onClick={() => {
+              const blob = new Blob([srcDoc], { type: "text/html" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "index.html";
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+            className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors"
+            title="Download HTML"
+          >
+            <Download className="w-4 h-4" />
+          </button>
           <button
             onClick={() => {
               const blob = new Blob([srcDoc], { type: "text/html" });
